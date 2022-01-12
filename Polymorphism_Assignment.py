@@ -19,35 +19,42 @@ class User:
 
 #Child Class Employee
 class FTEmployee(User):
-    base_pay = 150.00
-    department = "Area Management"
+    employee_name = "Mark Jones"
+    department_number = "PE401"
     pin_number = "3980"
 
-class FTEmployee(User):
-    base_pay = 60.00
-    department = "Team Member"
-    pin_number = "2200"
+    def getLoginInfo(self):
+        employee_name = input("Enter your name: ")
+        entry_department_number = input("Enter your Department Number: ")
+        entry_pin = input("Enter your pin: ")
+        if (entry_department_number == self.department_number and entry_pin == self.pin_number):
+            print("Welcome back, {}!".format(entry_name))
+        else:
+            print("Your Department Number or pin is incorrect.  Please re-enter.")
+
+class Customer(User):
+    Customer_Email = "Jane@hotmail.com"
+    Member_ID = "444333"
     
 
 #This is the same method in the parent class "User".
 #The difference is that, instead of using entry_password, we're using entry_pin.
 
     def getLoginInfo(self):
-        entry_name = input("Enter your name: ")
-        entry_email = input("Enter your email: ")
-        entry_pin = input("Enter your pin: ")
-        if (entry_email == self.email and entry_pin == self.pin_number):
+        Customer_Email = input("Enter your email: ")
+        entry_ID = input("Enter your Member ID: ")
+        if (Customer_Email == self.email and entry_id == self.member_id):
             print("Welcome back, {}!".format(entry_name))
         else:
-            print("The pin or email is incorrect")
+            print("Your Email or Member ID is incorrect.")
 
 #The following code invokes the methods inside each class for User and Employee.
 
 customer = User()
 customer.getLoginInfo()
 
-manager = FTEmployee()
-manager.getLoginInfo()
+employee = FTEmployee()
+employee.getLoginInfo()
 
-worker = PTEmployee()
-worker.getLoginInfo()
+member = Customer()
+member.getLoginInfo()

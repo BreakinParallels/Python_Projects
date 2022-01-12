@@ -18,10 +18,16 @@ class User:
 
 
 #Child Class Employee
-class Employee(User):
+class FTEmployee(User):
     base_pay = 150.00
     department = "Area Management"
     pin_number = "3980"
+
+class FTEmployee(User):
+    base_pay = 60.00
+    department = "Team Member"
+    pin_number = "2200"
+    
 
 #This is the same method in the parent class "User".
 #The difference is that, instead of using entry_password, we're using entry_pin.
@@ -40,5 +46,8 @@ class Employee(User):
 customer = User()
 customer.getLoginInfo()
 
-manager = Employee()
+manager = FTEmployee()
 manager.getLoginInfo()
+
+worker = PTEmployee()
+worker.getLoginInfo()

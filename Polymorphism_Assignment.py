@@ -12,7 +12,7 @@ class User:
         entry_email = input("Enter your email: ")
         entry_password = input("Enter your password: ")
         if (entry_email == self.email and entry_password == self.password):
-            print("Welcome back, {}!".format(entry_name))
+            print("Welcome back, {}!".format(self.name))
         else:
             print("The password or email is incorrect.")
 

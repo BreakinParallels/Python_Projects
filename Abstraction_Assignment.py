@@ -20,7 +20,7 @@ class CreditCardPayment(tv):
         print('Your purchase amount of {} exceeded your $1000 limit '.format(amount))
 
 
-obj = DebitCardPayment()
+obj = CreditCardPayment()
 obj.creditLimit("$3000")
 obj.payment("$2000")
 

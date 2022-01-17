@@ -7,7 +7,7 @@ from tkinter import *
 
 
 
-
+# creating GUI
 class ParentWindow(Frame):
     def __init__ (self, master):
         Frame.__init__ (self)
@@ -30,10 +30,7 @@ class ParentWindow(Frame):
         self.lblDisplay = Label(self.master,text='', font=("Helvetica", 16), fg='black', bg='lightgray')
         self.lblDisplay.grid(row=3, column=1,padx=(30,0), pady=(30,0))
 
-       
-       
-
-        
+               
         self.txtLName = Entry(self.master,text=self.varLName, font=("Helvetica", 16), fg='black', bg='lightblue')
         self.txtLName.grid(row=1, column=1,padx=(30,0), pady=(30,0))
 

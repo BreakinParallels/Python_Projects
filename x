@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>
+    Stay tuned for our amazing summer sale!
+        </h1>
+    </body>
+
+</html>

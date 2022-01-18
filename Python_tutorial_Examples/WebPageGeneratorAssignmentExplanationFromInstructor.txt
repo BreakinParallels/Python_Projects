@@ -1,0 +1,98 @@
+Hi Shannon,
+
+Per our phone conversation earlier, I'll break down the steps to create the last function in our file transfer project. This function should move the files that are in the source folder to the destination folder, and it should only move the files that were modified within the last twenty four hours.
+
+First, we need to declare the function. We could name it something like "move_files". We want it to be able to interact with parts of our overall Tkinter GUI, so we need to pass "self" into it:
+
+def move_files(self):
+
+Before we can start moving files, we need to get the paths of the source folder and the destination folder. Thankfully, those paths are stored in our Entry widgets from when the user clicked the two previous buttons to choose the source and destination folders. So, we will retrieve, or in other words, "get", the text from those Entry widgets. In our "move_files" function, we need to use the ".get" method to get the text from the Entry widget that contains our source folder:
+
+    #gets the source path text from the Entry widget
+    src = self.entrysource.get()
+
+Then we need to do the same thing, but this time, we need to get the text of the destination folder path from the other Entry widget:
+
+    #gets the destination path text from the other Entry widget
+    dest = self.entrydest.get()
+
+Then, we need to use "os.listdir" to get a list of all the files currently in the source folder, and save that list to a variable. However, we need to import the "os" module into our project in order to do that. Once we've done that, we can use "os.listdir". The variable that holds the text path to our source folder is named "src", so we'll pass that into "os.listdir".
+
+    import os
+    #compiles a list of files in the source folder
+    fileList = os.listdir(src)
+
+Now, we know we'll eventually have to compare different times to each other, so we might as well get the current date and time, and then get the time 24 hours ago. So, we'll import the "datetime" module and use "datetime.datetime.now()" to get the current date and time. Then, we'll use "timedelta" to subtract 24 hours from the current date and time, in order to get the time 24 hours ago:
+
+    import datetime
+    #gets the current date and time
+    current = datetime.datetime.now()
+    #gets the date and time 24 hours ago
+    twentyfour = current - datetime.timedelta(hours=24)
+
+Then, we need to iterate through the list of files using a "for" loop:
+
+    #iterates through the list of files
+    for file in fileList:
+
+Inside the "for" loop, we now need to get the absolute, full path of each file. The absolute path includes the path leading up to the folder location of the file, and the name of the file itself. To get this absolute path, we'll join the "src" path with the variable that the loop is using to iterate through the list, "file". We'll combine them using "os.path.join":
+
+         #gets the absolute, full path to the file by combining the source
+         #path with the name of the file
+         absolutePath = os.path.join(src, file)
+
+Now we need to get the time each file was last modified. We do this by using the "os.path.getmtime" method, and giving it the absolute path of the file:
+
+         #gets the modification time of the file in mtime format
+         mtime = os.path.getmtime(absolutePath)
+
+However, the problem with this is that "os.path.getmtime" returns the modification time in mtime format, which different than datetime format. So, we need to convert the mtime format to a proper datetime format using the "fromtimestamp" method:
+
+         #converts the mtime format to a proper datetime format
+         modtime = datetime.datetime.fromtimestamp(mtime)
+
+Now that we have all necessary data (the absolute path of each file, the modification time of each file in a datetime format, and the time 24 hours ago), we can start checking each file to see if they've been modified less than 24 hours ago. We'll write an "if" statement that checks if the modification time was more recent than (we check for "more recent than" by using a "greater than" symbol) 24 hours ago, and if it is, then we'll import the "shutil" module and use "shutil.move" to move the file to the destination folder:
+
+           #if the file's modification time was more recent than
+           #24 hours ago, move the file to the destination folder
+           if modtime > twentyfour:
+               import shutil
+               shutil.move(absolutePath, dest)
+
+In the end, the entire "move_files" function should look like this:
+
+def move_files(self):
+    #gets the source path text from the Entry widget
+    src = self.entrysource.get()
+    #gets the destination path text from the other Entry widget
+    dest = self.entrydest.get()
+
+    import os
+    #compiles a list of files in the source folder
+    fileList = os.listdir(src)
+
+    import datetime
+    #gets the current date and time
+    current = datetime.datetime.now()
+    #gets the date and time 24 hours ago
+    twentyfour = current - datetime.timedelta(hours=24)
+
+    #iterates through the list of files
+    for file in fileList:
+        #gets the absolute, full path to the file by combining the source
+        #path with the name of the file
+        absolutePath = os.path.join(src, file)
+
+        #gets the modification time of the file in mtime format
+        mtime = os.path.getmtime(absolutePath)
+        #converts the mtime format to a proper datetime format
+        modtime = datetime.datetime.fromtimestamp(mtime)
+
+        #if the file's modification time was more recent than
+        #24 hours ago, move the file to the destination folder
+        if modtime > twentyfour:
+            import shutil
+            shutil.move(absolutePath, dest)
+        
+
+After that, you just need to adjust the third Button widget in your GUI to use the "command" attribute to call that "move_files" function, just like you did with the other Button widgets.

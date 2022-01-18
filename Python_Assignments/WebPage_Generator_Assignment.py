@@ -1,7 +1,5 @@
 
 
-
-
 import webbrowser
 x = 'WebPage_Generator_for_Python_Assignment.html'
 #creating html file
@@ -20,7 +18,3 @@ f.close()
 #opening file thru py command
 
 webbrowser.open_new_tab(x)
-
-
-import tkinter
-from tkinter import *
